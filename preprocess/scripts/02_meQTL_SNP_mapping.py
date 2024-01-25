@@ -25,8 +25,27 @@ with open(file_path) as r:
 					w2.write(rsid + '\n')
 				line = r.readline()
 #'''
+'''
+single_meQTL.txt:
+CpG	SNP	Ref	Alt	Beta	SE	Pvalue
+cg11913416	rs1262461	A	G	-1.179	0.0348	5.6e-119
+cg25722041	rs114812780	G	T	1.233	0.0369	3.16e-117
+cg25722041	rs12568293	T	C	1.233	0.0369	3.16e-117
+cg25722041	rs12117910	A	C	1.233	0.0369	3.17e-117
+cg25722041	rs12403339	G	A	1.233	0.0369	3.17e-117
+cg25722041	rs12145445	C	G	1.233	0.0369	3.23e-117
+cg25722041	rs12120824	C	T	1.233	0.0369	3.24e-117
+'''
+'''
+meQTL_rsids.txt:
+rs1262461
+rs114812780
+rs12568293
+rs12117910
+rs12403339
+'''
 
-# step2 RSID annotation
+# step2 RSID annotation to annovar database
 #'''
 rs_file = '../../datasets/middlefile/meQTL_rsids.txt'
 output_path = '../../datasets/middlefile/dbSNP_rsid_annotation.txt'
@@ -67,9 +86,35 @@ CHR	POS	RSID	A1	A2
 6	31790463	31790463	G	A
 11	117570906	117570906	C	G
 '''
+'''
+# scripts for merge multi-process generated files:
+
+fold_path = '../../datasets/middlefile/annotation/'
+output_path = '../../datasets/middlefile/dbSNP_rsid_annotation.txt'
+
+with open(output_path, 'w+') as w:
+    # write file head first
+    w.write('CHR\tPOS\tRSID\tA1\tA2\n')
+    # merge files
+    for i in range(10):
+        with open(fold_path + 'dbSNP_rsid_annotation' + str(i+1) + '.txt') as r:
+            line = r.readline() # ignore file head
+            line = r.readline()
+            while line:
+                w.write(line.strip() + '\n')
+                line = r.readline()
+
+'''
 #'''
 
-# step 3 split by [CHR] and sort by [POS]
+# step 3 SNP annotation to methylation position of meQTLs
+#'''
+snp_annotation_path = '../../datasets/middlefile/dbSNP_rsid_annotation.txt'
+
+
+#'''
+
+# step 4 split by [CHR] and sort by [POS]
 #'''
 
 

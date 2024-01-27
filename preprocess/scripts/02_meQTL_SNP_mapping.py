@@ -111,6 +111,7 @@ with open(output_path, 'w+') as w:
 meqtl_path = '../../datasets/middlefile/single_meQTL.txt'
 snp_annotation_path = '../../datasets/middlefile/dbSNP_rsid_annotation.txt'
 cpg_annotation_path = '../../datasets/middlefile/clean_epic/cpg_all.pkl'
+save_path = '../../datasets/middlefile/meQTL_annotation_CpG_SNP_raw.pkl'
 
 main_table = pd.read_csv(meqtl_path, sep='\t')
 print(main_table.head())
@@ -176,8 +177,12 @@ for i in tqdm(range(main_table.shape[0])): # 12424038, need long time (nearly 26
 		main_table.loc[i, 'SNP_check_A2'] = indexed_snp[indexed_snp.index==snp]['A2'].values[0]
 	except IndexError:
 		continue
-	#print(main_table.head())
-
+print(main_table.head())
+main_table.to_pickle(save_path)
+'''
+         CpG          SNP Ref Alt   Beta CpG_CHR   CpG_POS SNP_CHR  SNP_POS SNP_check_A1 SNP_check_A2
+4  cg25722041   rs12403339   G   A  1.233       1   8563413       1  8498232            G            A
+'''
 
 #'''
 

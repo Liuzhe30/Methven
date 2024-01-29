@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import subprocess
 from tqdm import tqdm
+import warnings
+warnings.filterwarnings('ignore')
 
 # step1, clean wrong items, fetch rsids
 #'''
@@ -106,12 +108,12 @@ with open(output_path, 'w+') as w:
 '''
 #'''
 
-# step 3 CpG and SNP annotation to methylation position of meQTLs with [CHR] splitted
+# step 3 CpG and SNP annotation to methylation position of meQTLs
 #'''
 meqtl_path = '../../datasets/middlefile/single_meQTL.txt'
 snp_annotation_path = '../../datasets/middlefile/dbSNP_rsid_annotation.txt'
 cpg_annotation_path = '../../datasets/middlefile/clean_epic/cpg_all.pkl'
-save_path = '../../datasets/middlefile/meQTL_annotation_CpG_SNP_raw.pkl'
+save_path = '../../datasets/middlefile/meQTL_annotation_CpG_SNP.pkl'
 
 main_table = pd.read_csv(meqtl_path, sep='\t')
 print(main_table.head())
@@ -123,13 +125,6 @@ print(main_table.head())
 3  cg25722041   rs12117910   A   C  1.233  0.0369  3.170000e-117
 4  cg25722041   rs12403339   G   A  1.233  0.0369  3.170000e-117
 '''
-# add annotation columns
-main_table['CpG_CHR'] = 'space'
-main_table['CpG_POS'] = -1
-main_table['SNP_CHR'] = 'space'
-main_table['SNP_POS'] = -1
-main_table['SNP_check_A1'] = 'space'
-main_table['SNP_check_A2'] = 'space'
 main_table = main_table.drop(columns=['Pvalue'])  
 main_table = main_table.drop(columns=['SE']) 
 print(main_table.head())
@@ -160,34 +155,38 @@ rs7930058    11   17045071  C  T
 rs62152638    2   82055800  G  A
 rs7298494    12   10460666  G  T
 '''
-for i in tqdm(range(main_table.shape[0])): # 12424038, need long time (nearly 260 hours)
-    # CpG annotation
+new_table = pd.DataFrame(columns=['CpG', 'SNP', 'Beta', 'Ref', 'Alt', 'CHR', 'CpG_POS', 'SNP_POS'])
+for i in tqdm(range(main_table.shape[0])): # 12424038, need long time in single thread (500 items/min)
+	CpG_CHR = 'space'
+	SNP_CHR = 'space'
 	try:
+		# CpG annotation
 		cpg = main_table['CpG'][i]
-		main_table.loc[i, 'CpG_CHR'] = indexed_cpg[indexed_cpg.index==cpg]['CHR_hg38'].values[0][3:]
-		main_table.loc[i, 'CpG_POS'] = indexed_cpg[indexed_cpg.index==cpg]['Start_hg38'].values[0]
+		CpG_CHR = indexed_cpg[indexed_cpg.index==cpg]['CHR_hg38'].values[0][3:]
+		CpG_POS = indexed_cpg[indexed_cpg.index==cpg]['Start_hg38'].values[0]
+		# SNP annotation
+		snp = main_table['SNP'][i]
+		SNP_CHR = indexed_snp[indexed_snp.index==snp]['CHR'].values[0]
+		SNP_POS = indexed_snp[indexed_snp.index==snp]['POS'].values[0]
+		SNP_check_A1 = indexed_snp[indexed_snp.index==snp]['A1'].values[0]
+		SNP_check_A2 = indexed_snp[indexed_snp.index==snp]['A2'].values[0]
+		# check items: null CpG | null SNP | wrong A1 | wrong A2 | different CHR
+		if(CpG_CHR != 'space' and SNP_CHR != 'space' and main_table['Ref'][i] == SNP_check_A1 and main_table['Alt'][i] == SNP_check_A2 and str(CpG_CHR) == str(SNP_CHR)):
+			new_table = new_table.append([{'CpG':cpg, 'SNP':snp, 'Beta':main_table['Beta'][i], 'Ref':main_table['Ref'][i], 
+                                    'Alt':main_table['Alt'][i], 'CHR':CpG_CHR, 'CpG_POS':CpG_POS, 'SNP_POS':SNP_POS}], ignore_index=True)
 	except IndexError:
 		continue        
-    # SNP annotation
-	snp = main_table['SNP'][i]
-	try:
-		main_table.loc[i, 'SNP_CHR'] = indexed_snp[indexed_snp.index==snp]['CHR'].values[0]
-		main_table.loc[i, 'SNP_POS'] = indexed_snp[indexed_snp.index==snp]['POS'].values[0]
-		main_table.loc[i, 'SNP_check_A1'] = indexed_snp[indexed_snp.index==snp]['A1'].values[0]
-		main_table.loc[i, 'SNP_check_A2'] = indexed_snp[indexed_snp.index==snp]['A2'].values[0]
-	except IndexError:
-		continue
-print(main_table.head())
-main_table.to_pickle(save_path)
+	
+print(new_table.head())
+print(new_table.shape)
+new_table.to_pickle(save_path)
 '''
-         CpG          SNP Ref Alt   Beta CpG_CHR   CpG_POS SNP_CHR  SNP_POS SNP_check_A1 SNP_check_A2
-4  cg25722041   rs12403339   G   A  1.233       1   8563413       1  8498232            G            A
+          CpG         SNP   Beta Ref Alt CHR  CpG_POS  SNP_POS
+0  cg25722041  rs12403339  1.233   G   A   1  8563413  8498232
+1  cg25722041  rs28422051  1.233   T   C   1  8563413  8558278
+2  cg25722041  rs11584261  1.233   C   A   1  8563413  8500306
+3  cg25722041  rs12405049  1.233   C   T   1  8563413  8566058
+4  cg25722041   rs2144463  1.233   C   A   1  8563413  8523234
 '''
-
-#'''
-
-# step 4 remove wrong items
-#'''
-
 
 #'''

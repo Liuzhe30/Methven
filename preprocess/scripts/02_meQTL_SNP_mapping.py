@@ -172,14 +172,14 @@ for i in tqdm(range(main_table.shape[0])): # 12424038, need long time in single 
 		SNP_check_A2 = indexed_snp[indexed_snp.index==snp]['A2'].values[0]
 		# check items: null CpG | null SNP | wrong A1 | wrong A2 | different CHR
 		if(CpG_CHR != 'space' and SNP_CHR != 'space' and main_table['Ref'][i] == SNP_check_A1 and main_table['Alt'][i] == SNP_check_A2 and str(CpG_CHR) == str(SNP_CHR)):
-			new_table = new_table.append([{'CpG':cpg, 'SNP':snp, 'Beta':main_table['Beta'][i], 'Ref':main_table['Ref'][i], 
+			new_table = new_table._append([{'CpG':cpg, 'SNP':snp, 'Beta':main_table['Beta'][i], 'Ref':main_table['Ref'][i], 
                                     'Alt':main_table['Alt'][i], 'CHR':CpG_CHR, 'CpG_POS':CpG_POS, 'SNP_POS':SNP_POS}], ignore_index=True)
 	except IndexError:
 		continue        
 	
 print(new_table.head())
 print(new_table.shape)
-new_table.to_pickle(save_path)
+new_table.to_pickle(save_path) # [7469000 rows x 8 columns]
 '''
           CpG         SNP   Beta Ref Alt CHR  CpG_POS  SNP_POS
 0  cg25722041  rs12403339  1.233   G   A   1  8563413  8498232

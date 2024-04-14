@@ -22,7 +22,7 @@ cross_table = pd.read_pickle(cross_path)
 4  cg25722041   rs12403339  1.233   G   A   1   8563413   8498232
 '''
 
-'''
+#'''
 # step 1: calculate distance
 cross_table = cross_table.reset_index(drop=True)
 cross_table['distance'] = 0
@@ -33,7 +33,7 @@ for i in tqdm(range(cross_table.shape[0])):
     cross_table['distance'][i] = distance
 cross_table.to_pickle('../../datasets/middlefile/meQTL_annotation_CpG_SNP_distance.pkl')
 print(cross_table.head())    
-'''
+#'''
 '''
           CpG          SNP   Beta Ref Alt CHR   CpG_POS   SNP_POS  distance
 0  cg11913416    rs1262461 -1.179   A   G   1  13582516  13581610       906
@@ -43,13 +43,12 @@ print(cross_table.head())
 4  cg25722041   rs12403339  1.233   G   A   1   8563413   8498232     65181
 '''
 
-'''
+#'''
 # step 2: split by chr
 for i in range(22):
     sub_table = cross_table[cross_table['CHR'] == str(i+1)].reset_index(drop = True)
     sub_table.to_pickle('../../datasets/middlefile/meQTL_annotation_CpG_SNP_chr/chr' + str(i+1) + '.pkl')
-'''
-
+#'''
 
 # step 3: downsample SNPs
 # orignal ratio: small:middle:large = 1:5:10

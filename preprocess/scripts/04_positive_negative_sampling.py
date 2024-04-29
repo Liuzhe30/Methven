@@ -6,8 +6,6 @@ import json
 import warnings
 warnings.filterwarnings('ignore')
 
-maxlen = 100_000
-
 cross_path = '../../datasets/middlefile/meQTL_annotation_CpG_SNP_chr/'
 cpg_path = '../../datasets/middlefile/clean_epic/'
 snp_dict_path = '../../datasets/middlefile/downsample_SNP.json'
@@ -177,3 +175,37 @@ for i in tqdm(range(22)):
     3  cg25159064  rs10158705    0   G   A   1  19390988  19424086    33098     0
     4  cg03076210  rs10158705    0   G   A   1  19485209  19424086    61123     0
     '''
+    
+    # huge model
+    snp_list = snp_dict[chr]['huge']
+    dataset = pd.DataFrame(columns=['CpG', 'SNP', 'Beta', 'Ref', 'Alt', 'CHR', 'CpG_POS', 'SNP_POS','distance', 'label'])
+    for snp in tqdm(snp_list):
+        len_sample = cross_table[(cross_table['distance'] > 100_000) & (cross_table['distance'] <= 1_000_000)].reset_index(drop=True)
+        pos_sample = len_sample[len_sample['SNP'] == snp].reset_index(drop=True)
+        snp_position = int(pos_sample['SNP_POS'][0])
+        pos_cpg_list = pos_sample['CpG'].tolist()
+        max_range = 1_000_000
+        min_range = 100_001
+        cpg_range = {'min1':snp_position - max_range, 'max1':snp_position - min_range,
+                     'min2':snp_position + min_range, 'max2':snp_position + max_range}
+        candidate = cpg_table[(cpg_table['Start_hg38'] > cpg_range['min1']) & (cpg_table['Start_hg38'] < cpg_range['max1']) |
+                               (cpg_table['Start_hg38'] > cpg_range['min2']) & (cpg_table['Start_hg38'] < cpg_range['max2'])]
+        for pos in pos_cpg_list:
+            candidate_ = candidate[~(candidate['IlmnID'] == pos)].reset_index(drop=True)
+
+        for j in range(pos_sample.shape[0]):
+            dataset = dataset._append([{'CpG':pos_sample['CpG'][j], 'SNP':pos_sample['SNP'][0], 'Beta':pos_sample['Beta'][j], 'Ref':pos_sample['Ref'][0], 
+                                    'Alt':pos_sample['Alt'][0], 'CHR':pos_sample['CHR'][0], 'CpG_POS':int(pos_sample['CpG_POS'][j]), 
+                                    'SNP_POS':int(pos_sample['SNP_POS'][0]), 'distance':pos_sample['distance'][j],
+                                    'label':1}], ignore_index=True)
+        for j in range(candidate_.shape[0]):
+            new_cpg_pos = int(candidate_['Start_hg38'][j])
+            new_snp_pos = int(pos_sample['SNP_POS'][0])
+            new_distance = np.abs(new_cpg_pos - new_snp_pos)
+            dataset = dataset._append([{'CpG':candidate_['IlmnID'][j], 'SNP':pos_sample['SNP'][0], 'Beta':0, 'Ref':pos_sample['Ref'][0], 
+                                    'Alt':pos_sample['Alt'][0], 'CHR':pos_sample['CHR'][0], 'CpG_POS':new_cpg_pos, 
+                                    'SNP_POS':new_snp_pos, 'distance':new_distance,
+                                    'label':0}], ignore_index=True)
+
+    dataset.to_pickle(save_path + chr + '_huge.dataset')
+    print(dataset['label'].value_counts())

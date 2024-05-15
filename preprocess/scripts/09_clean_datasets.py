@@ -19,7 +19,7 @@ for i in range(22):
             seq_after = data['seq_after'][i]
             cpg = data['CpG'][i]
             snp = data['SNP'][i]
-            with open(string_path + model + '_' + chr + '_' + cpg + '_' + snp + '_before.txt','w+') as f:
+            with open(string_path + cpg + '_' + snp + '_' + model + '_' + chr + '_before.txt','w+') as f:
                 f.write(seq_before)
-            with open(string_path + model + '_' + chr + '_' + cpg + '_' + snp + '_after.txt','w+') as f:
+            with open(string_path + cpg + '_' + snp + '_' + model + '_' + chr + '_after.txt','w+') as f:
                 f.write(seq_after)

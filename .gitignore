@@ -2,3 +2,6 @@
 datasets/
 preprocess/scripts/test.py
 preprocess/images/
+
+# middle scripts
+training_onehot.py

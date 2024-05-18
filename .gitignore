@@ -5,3 +5,4 @@ preprocess/images/
 
 # middle scripts
 training_onehot.py
+evaluation_onehot.py

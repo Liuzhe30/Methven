@@ -1,28 +1,16 @@
-# fetch DNABERT embedding: 500bp -> [1,768]
-# https://github.com/jerryji1993/DNABERT, k-mer=6
+# fetch DNABERT embedding: -> [x,768]
+# https://github.com/MAGICS-LAB/DNABERT_2
 import os
 import torch
-from transformers import BertModel, BertConfig, DNATokenizer
+import pandas as pd
 import numpy as np
+from tqdm import tqdm
+from transformers import AutoTokenizer, AutoModel
+import warnings
+warnings.filterwarnings('ignore')
 
-dir_to_pretrained_model = "/data/eqtl/dnabert/6-new-12w-0/"
-
-config = BertConfig.from_pretrained('/home/liuzhe/dnabert/DNABERT/src/transformers/dnabert-config/bert-config-6/config.json')
-tokenizer = DNATokenizer.from_pretrained('/home/liuzhe/dnabert/DNABERT/src/transformers/dnabert-config/bert-config-6/vocab.txt')
-model = BertModel.from_pretrained(dir_to_pretrained_model, config=config)
-
-'''
-# test code:
-
-sequence = "AATCTAATCTAGTCTAGCCTAGCA"
-model_input = tokenizer.encode_plus(sequence, add_special_tokens=True, max_length=512)["input_ids"]
-model_input = torch.tensor(model_input, dtype=torch.long)
-model_input = model_input.unsqueeze(0)   # to generate a fake batch with batch size one
-
-output = model(model_input)
-new = output[1].data.cpu().numpy()
-np.save('seq2_embedding.npy',new)
-'''
+tokenizer = AutoTokenizer.from_pretrained("zhihan1996/DNABERT-2-117M", trust_remote_code=True)
+model = AutoModel.from_pretrained("zhihan1996/DNABERT-2-117M", trust_remote_code=True)
 
 model_size = {'2001':'small','20001':'middle','200001':'large','2000001':'huge'}
 model_cutting = {'small':1,'middle':19,'large':199,'huge':1_999}
@@ -51,26 +39,35 @@ def split_seq(sequence):
 def dnabert_embedding(seq_list):
     embedding_list = []
     for sequence in seq_list:
-        model_input = tokenizer.encode_plus(sequence, add_special_tokens=True, max_length=512)["input_ids"]
-        model_input = torch.tensor(model_input, dtype=torch.long)
-        model_input = model_input.unsqueeze(0)
-        output = model(model_input)
-        new = output[1].data.cpu().numpy()
+        inputs = tokenizer(sequence, return_tensors = 'pt')["input_ids"]
+        hidden_states = model(inputs)[0] # [1, sequence_length, 768]
+        embedding_mean = torch.mean(hidden_states[0], dim=0)
+        new = embedding_mean.data.cpu().numpy()
+        new = new.reshape([1,new.shape[0]])
         embedding_list.append(new)
     embedding = np.array(embedding_list[0])
     for item in embedding_list[1:]:
         embedding = np.concatenate([embedding,item],axis=0)
     return embedding
 
-file_path = '/data/eqtl/methven/sequence_datasets/'
-output_path = '/data/eqtl/methven/dnabert_embedding/'
+file_path = '/root/autodl-tmp/datasets/seq_mapping_post/'
+output_path = '/root/autodl-tmp/datasets/dnabert_embedding/'
 
-filenames = os.listdir(file_path)
-for file in filenames:
-    file_clean = file.split('.')[0]
-    with open(file_path + file,'r') as f1:
-        sequence = f1.readline().strip()
-        sequence_list = split_seq(sequence)
-        dnabert = dnabert_embedding(sequence_list)
-        np.save(output_path + file_clean + '.npy', dnabert)
-            
+for i in tqdm(range(22)):
+    chr = 'chr' + str(i+1)
+    for m in model_cutting.keys():
+        data = pd.read_pickle(file_path + chr + '_' + m + '.dataset')
+        data['dnabert_before'] = 0
+        data['dnabert_before'] = data['dnabert_before'].astype('object')
+        data['dnabert_after'] = 0
+        data['dnabert_after'] = data['dnabert_after'].astype('object')
+        for i in range(len(data)):
+            seq_before = data['seq_before'][i]
+            sequence1_list = split_seq(seq_before)
+            dnabert1 = dnabert_embedding(sequence1_list) # (x,768)
+            data['dnabert_before'][i] = dnabert1
+            seq_after = data['seq_after'][i]
+            sequence2_list = split_seq(seq_after)
+            dnabert2 = dnabert_embedding(sequence2_list)
+            data['dnabert_after'][i] = dnabert2
+        data.to_pickle(output_path + chr + '_' + m + '.dataset')

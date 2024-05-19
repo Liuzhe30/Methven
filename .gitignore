@@ -2,7 +2,12 @@
 datasets/
 preprocess/scripts/test.py
 preprocess/images/
+model/weights/
 
 # middle scripts
 training_onehot.py
 evaluation_onehot.py
+
+# middle file
+*.pyc
+*.npy

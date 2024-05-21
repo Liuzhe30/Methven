@@ -50,8 +50,8 @@ def dnabert_embedding(seq_list):
         embedding = np.concatenate([embedding,item],axis=0)
     return embedding
 
-file_path = '/root/autodl-tmp/datasets/seq_mapping_post/'
-output_path = '/root/autodl-tmp/datasets/dnabert_embedding/'
+file_path = '../../datasets/seq_mapping_post/'
+output_path = '../../datasets/dnabert_embedding/'
 
 for i in tqdm(range(22)):
     chr = 'chr' + str(i+1)

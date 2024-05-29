@@ -1,0 +1,15 @@
+# middle output
+datasets/
+preprocess/scripts/test.py
+preprocess/images/
+model/weights/
+model/weights_onehot/
+
+# middle scripts
+training_onehot.py
+evaluation_onehot.py
+
+# middle file
+*.pyc
+*.npy
+*.slurm

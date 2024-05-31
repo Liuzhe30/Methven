@@ -4,6 +4,7 @@ preprocess/scripts/test.py
 preprocess/images/
 model/weights/
 model/weights_onehot/
+experiment/images/
 
 # middle scripts
 training_onehot.py

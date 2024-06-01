@@ -4,11 +4,18 @@ preprocess/scripts/test.py
 preprocess/images/
 model/weights/
 model/weights_onehot/
+model/weights_cpgenie/
 experiment/images/
 
 # middle scripts
 training_onehot.py
 evaluation_onehot.py
+training_cpgenie.py
+evaluation_cpgenie.py
+middleOutput.py
+model/cpgenie.py
+src/dataGenerator_onehot.py
+src/dataGenerator_cpgenie.py
 
 # middle file
 *.pyc

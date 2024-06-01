@@ -32,7 +32,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-m', '--model_size', default='small')
     parser.add_argument('--epochs', default=200, type=int)
-    parser.add_argument('--lr', default=0.0001, type=float,
+    parser.add_argument('--lr', default=0.001, type=float,
                         help="Initial learning rate")
     parser.add_argument('--lr_decay', default=0.05, type=float,
                         help="The value multiplied by lr at each epoch. Set a larger value for larger epochs") 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     
     # callbacks
     log = tf.keras.callbacks.CSVLogger(save_dir + model_size + '/log.csv')
-    checkpoint = tf.keras.callbacks.ModelCheckpoint(save_dir + args.model_size + '/' + args.model_size + '_trained_weights.tf', monitor='val_acc', mode='max', #val_categorical_accuracy val_acc
+    checkpoint = tf.keras.callbacks.ModelCheckpoint(save_dir + args.model_size + '_trained_weights.tf', monitor='val_acc', mode='max', #val_categorical_accuracy val_acc
                                        save_best_only=True, save_weights_only=True, verbose=1)        
 
     # Train the model and save it

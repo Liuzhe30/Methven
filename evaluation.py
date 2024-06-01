@@ -42,7 +42,7 @@ def predicting(model_size):
 
     testGenerator = dataGenerator(test_data, batch_size, model_size)
 
-    model.load_weights('model/weights/' + model_size + '/' + model_size + '_trained_weights.tf').expect_partial()
+    model.load_weights('model/weights/' + model_size + '_trained_weights.tf').expect_partial()
     results = model.predict(testGenerator.generate_validation()[0], batch_size=batch_size)
     label = testGenerator.generate_validation()[1]
     
@@ -54,5 +54,4 @@ def predicting(model_size):
 if __name__=='__main__':
 
     predicting('small')
-    #predicting('middle')
     #predicting('large')

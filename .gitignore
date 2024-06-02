@@ -12,7 +12,7 @@ training_onehot.py
 evaluation_onehot.py
 training_cpgenie.py
 evaluation_cpgenie.py
-middleOutput.py
+middleOutput_.py
 model/cpgenie.py
 src/dataGenerator_onehot.py
 src/dataGenerator_cpgenie.py

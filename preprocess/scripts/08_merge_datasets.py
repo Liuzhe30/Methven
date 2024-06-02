@@ -12,7 +12,7 @@ dnabert_path = '../../datasets/dnabert_embedding/'
 merge_path = '../../datasets/merge_dnabert/'
 output_path1 = '../../datasets/final/dnabert/'
 output_path2 = '../../datasets/final/origin/'
-clean_path = '../../datasets/clean/'
+clean_path = '../../data/original_split/'
 
 model_size = {'small':10_000,'large':100_000}
 

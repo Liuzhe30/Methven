@@ -4,14 +4,17 @@ preprocess/scripts/test.py
 preprocess/images/
 model/weights/
 model/weights_onehot/
-model/weights_cpgenie/
+model/weights_cpgenie_tenfold/
+model/weights_tenfold/
 experiment/images/
 
 # middle scripts
 training_onehot.py
 evaluation_onehot.py
-training_cpgenie.py
-evaluation_cpgenie.py
+training_tenfold.py
+evaluation_tenfold.py
+training_cpgenie_tenfold.py
+evaluation_cpgenie_tenfold.py
 middleOutput_.py
 model/cpgenie.py
 src/dataGenerator_onehot.py

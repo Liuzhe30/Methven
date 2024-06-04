@@ -49,7 +49,6 @@ if __name__ == "__main__":
     # load datasets
     train_data = pd.read_pickle('datasets/final/dnabert/' + model_size + '_train.dataset')
     valid_data = pd.read_pickle('datasets/final/dnabert/' + model_size + '_valid.dataset')
-    test_data = pd.read_pickle('datasets/final/dnabert/' + model_size + '_test.dataset')
 
     # check model size
     if(model_size == 'small'):
@@ -64,9 +63,10 @@ if __name__ == "__main__":
     save_dir = args.save_dir
     
     # callbacks
-    log = tf.keras.callbacks.CSVLogger(save_dir + model_size + '/log.csv')
+    log = tf.keras.callbacks.CSVLogger(save_dir + model_size + '_log.csv')
     checkpoint = tf.keras.callbacks.ModelCheckpoint(save_dir + args.model_size + '_trained_weights.tf', monitor='val_acc', mode='max', #val_categorical_accuracy val_acc
                                        save_best_only=True, save_weights_only=True, verbose=1)        
+    earlystop = tf.keras.callbacks.EarlyStopping(patience=10, min_delta=1e-3)
 
     # Train the model and save it
     model.compile(loss='binary_crossentropy', 
@@ -81,7 +81,7 @@ if __name__ == "__main__":
           epochs = args.epochs, verbose=1,
           validation_data = validGenerator.generate_batch(),
           validation_steps = len(valid_data)/batch_size,
-          callbacks = [log, checkpoint],
+          callbacks = [log, checkpoint, earlystop],
           shuffle = True,
           workers = 1).history
 

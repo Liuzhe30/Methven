@@ -22,8 +22,8 @@ def mutation_center_seq(chr, cpg_pos, snp_pos, after_mutation):
     with open(fasta_path + chr_str + '.fasta') as fa:
         line = fa.readline()        
         range_seq = int(maxlen/2)       
-        sequence_before = line[cpg_pos - range_seq - 1:cpg_pos + range_seq]
-        sequence_after = line[cpg_pos - range_seq - 1:snp_pos - 1] + after_mutation + line[snp_pos:cpg_pos + range_seq]
+        sequence_before = line[cpg_pos - range_seq:cpg_pos + range_seq]
+        sequence_after = line[cpg_pos - range_seq:snp_pos - 1] + after_mutation + line[snp_pos:cpg_pos + range_seq]
     return sequence_before, sequence_after
 
 def fetch_enformer_results(sequence):

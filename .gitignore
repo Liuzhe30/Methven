@@ -13,9 +13,11 @@ training_onehot.py
 evaluation_onehot.py
 training_tenfold.py
 evaluation_tenfold.py
-training_cpgenie_tenfold.py
+training_tenfold_cpgenie.py
 evaluation_cpgenie_tenfold.py
 middleOutput_.py
+middleOutput_tenfold.py
+middleOutput_tenfold_cpgenie.py
 model/cpgenie.py
 src/dataGenerator_onehot.py
 src/dataGenerator_cpgenie.py

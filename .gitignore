@@ -4,16 +4,18 @@ preprocess/scripts/test.py
 preprocess/images/
 model/weights/
 model/weights_onehot/
+model/weights_slope/
 model/weights_cpgenie_tenfold/
 model/weights_tenfold/
 experiment/images/
 
 # middle scripts
 training_onehot.py
-evaluation_onehot.py
 training_tenfold.py
-evaluation_tenfold.py
 training_tenfold_cpgenie.py
+training_slope.py
+evaluation_onehot.py
+evaluation_tenfold.py
 evaluation_cpgenie_tenfold.py
 middleOutput_.py
 middleOutput_tenfold.py

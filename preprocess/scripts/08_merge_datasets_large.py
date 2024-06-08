@@ -37,7 +37,7 @@ for i in range(22):
     data_dnabert['atac_between'] = data_dnabert['atac_between'].astype('object')
     data_dnabert['atac_between_ori'] = 0
     data_dnabert['atac_between_ori'] = data_dnabert['atac_between_ori'].astype('object')
-    for i in range(len(data_atac)):
+    for i in range(len(data_dnabert)):
         cpg = data_dnabert['CpG'][i]
         snp = data_dnabert['SNP'][i]
         data_dnabert['atac_between'][i] = data_atac[(data_dnabert['CpG']==cpg)&(data_atac['SNP']==snp)]['atac_between']

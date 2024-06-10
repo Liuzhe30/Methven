@@ -40,7 +40,7 @@ for i in range(22):
     for i in range(len(data_dnabert)):
         cpg = data_dnabert['CpG'][i]
         snp = data_dnabert['SNP'][i]
-        data_dnabert['atac_between'][i] = data_atac[(data_dnabert['CpG']==cpg)&(data_atac['SNP']==snp)]['atac_between']
+        data_dnabert['atac_between'][i] = data_atac[(data_atac['CpG']==cpg)&(data_atac['SNP']==snp)]['atac_between']
         data_dnabert['atac_between_ori'][i] = data_atac_ori[(data_atac_ori['CpG']==cpg)&(data_atac_ori['SNP']==snp)]['atac_between']
     data_dnabert.to_pickle(merge_path + chr + '_' + model + '.dataset')
 

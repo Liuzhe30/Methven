@@ -1,8 +1,11 @@
+# generate enformer results for comparison (enformer-cpu)
+# dimensionality reduction using TSNE-PCA 
 import os
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 import tensorflow_hub as hub
+from sklearn.manifold import TSNE
 
 # https://github.com/google-deepmind/deepmind-research/blob/master/enformer/README.md, one hot encoded in order 'ACGT'
 eyes = np.eye(4)
@@ -33,7 +36,13 @@ def fetch_enformer_results(sequence):
     seq_array = np.array(seq_list)
     tensor = tf.convert_to_tensor(seq_array, tf.float32)
     tensor = tf.expand_dims(tensor, axis=0)
-    result = enformer.predict_on_batch(tensor)['human']
+    stack = enformer.predict_on_batch(tensor)['human']
+    stack = np.array(stack)
+    new_stack = stack.reshape((stack.shape[1],stack.shape[2]))
+    # generate pca results
+    tsne = TSNE(n_components=3, init='pca', random_state=0)
+    result = tsne.fit_transform(new_stack)
+
     return result
 
 for i in range(10):

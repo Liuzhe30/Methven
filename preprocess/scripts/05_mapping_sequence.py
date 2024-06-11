@@ -1,4 +1,5 @@
 # mapping DNA sequences, centered on CpG
+from sklearn.utils import shuffle
 import pandas as pd
 pd.set_option('display.max_columns', None)
 
@@ -82,3 +83,13 @@ for i in range(22):
                 data = data.drop(data[(data['CpG']==cpg)&(data['SNP']==snp)].index)
         data = data.reset_index(drop=True)
         data.to_pickle(output_path + chr + '_' + model + '.dataset')
+    
+# large-dataset down-sampling
+model = 'large'
+for i in range(22):
+    chr = 'chr' + str(i+1)
+    data = pd.read_pickle(output_path + chr + '_' + model + '.dataset')
+    data = shuffle(data)
+    sample_num = data.shape[0]
+    new_data = data.sample(n=int(sample_num/2),replace=False).reset_index(drop=True)
+    new_data.to_pickle(output_path + chr + '_' + model + '.dataset')

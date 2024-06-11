@@ -17,6 +17,7 @@ training_slope.py
 evaluation_onehot.py
 evaluation_tenfold.py
 evaluation_cpgenie_tenfold.py
+evaluation_slope.py
 middleOutput_.py
 middleOutput_tenfold.py
 middleOutput_tenfold_cpgenie.py

@@ -59,7 +59,7 @@ def build_methven_small():
 def build_methven_large():
 
     # hyper-paramaters
-    maxlen = 400
+    maxlen = 401
 
     ####### inputs (from data generator)
     input1 = Input(shape=(maxlen, 768), name = 'input_before') # seq-before-mutation

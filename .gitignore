@@ -1,5 +1,6 @@
 # middle output
 datasets/
+data/chr_final_count/
 preprocess/scripts/test.py
 preprocess/images/
 model/weights/
@@ -18,9 +19,11 @@ evaluation_onehot.py
 evaluation_tenfold.py
 evaluation_cpgenie_tenfold.py
 evaluation_slope.py
+large_ten_fold.py
 middleOutput_.py
 middleOutput_tenfold.py
 middleOutput_tenfold_cpgenie.py
+middleOutput_slope.py
 model/cpgenie.py
 src/dataGenerator_onehot.py
 src/dataGenerator_cpgenie.py

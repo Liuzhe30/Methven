@@ -10,7 +10,7 @@ data = pd.read_csv(file_path)
 # print(data.shape) # (865918, 52)
 
 # filter columns
-new_data = data[['IlmnID','CHR_hg38','MAPINFO']]
+new_data = data[['IlmnID','CHR','MAPINFO']]
 new_data.dropna(axis=0, how='any', inplace=True)
 new_data[['MAPINFO']] = new_data[['MAPINFO']].astype(int)
 new_data.columns = ['IlmnID','CHR','CpG_pos']

@@ -8,6 +8,8 @@ model/weights_onehot/
 model/weights_slope/
 model/weights_cpgenie_tenfold/
 model/weights_tenfold/
+model/weights_mono/
+model/weights_mono_finetune/
 experiment/images/
 
 # middle scripts
@@ -15,11 +17,14 @@ training_onehot.py
 training_tenfold.py
 training_tenfold_cpgenie.py
 training_slope.py
+training_mono.py
 evaluation_onehot.py
 evaluation_tenfold.py
+evaluation_mono.py
 evaluation_cpgenie_tenfold.py
 evaluation_slope.py
 large_ten_fold.py
+finetune_mono.py
 middleOutput_.py
 middleOutput_tenfold.py
 middleOutput_tenfold_cpgenie.py

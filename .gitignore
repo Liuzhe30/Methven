@@ -11,6 +11,7 @@ model/weights_tenfold/
 model/weights_mono/
 model/weights_mono_finetune/
 experiment/images/
+experiment/05-other-tissue-meqtl/
 
 # middle scripts
 training_onehot.py
@@ -18,9 +19,11 @@ training_tenfold.py
 training_tenfold_cpgenie.py
 training_slope.py
 training_mono.py
+training_skin.py
 evaluation_onehot.py
 evaluation_tenfold.py
 evaluation_mono.py
+evaluation_mono_e2e.py
 evaluation_cpgenie_tenfold.py
 evaluation_slope.py
 large_ten_fold.py

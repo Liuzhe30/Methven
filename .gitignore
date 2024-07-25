@@ -19,7 +19,6 @@ training_tenfold.py
 training_tenfold_cpgenie.py
 training_slope.py
 training_mono.py
-training_skin.py
 evaluation_onehot.py
 evaluation_tenfold.py
 evaluation_mono.py

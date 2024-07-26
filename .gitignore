@@ -10,6 +10,9 @@ model/weights_cpgenie_tenfold/
 model/weights_tenfold/
 model/weights_mono/
 model/weights_mono_finetune/
+model/weights_slope_ablation_noattention/
+model/weights_tenfold_ablation_noattention/
+model/weights_ablation_noattention/
 experiment/images/
 experiment/05-other-tissue-meqtl/
 experiment/05-attention-analysis/genome_field/

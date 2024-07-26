@@ -11,14 +11,6 @@ from tensorflow.keras import layers
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 
-def attention_3d_block(inputs, nb_time_steps):
-    a = layers.Permute((2, 1))(inputs)
-    a = layers.Dense(nb_time_steps, activation='relu', name = 'attention_dense')(a)
-    a_probs = layers.Permute((2, 1), name='attention_vec')(a)
-    #output_attention_mul = merge([inputs, a_probs], name='attention_mul', mode='mul')
-    output_attention_mul = layers.multiply([inputs, a_probs], name='attention_mul')
-    return output_attention_mul
-
 def build_methven_small():
 
     # hyper-paramaters
@@ -33,11 +25,6 @@ def build_methven_small():
     new_input3 = layers.Reshape((maxlen,1))(input3)
     input_between = layers.concatenate([input1, input2, new_input3], axis=-1)
     print('input_between.get_shape()', input_between.get_shape()) # (None, 5, 1537)
-    
-    ####### between-branch
-    attention_mul = attention_3d_block(input_between,maxlen)
-    attention_mul = layers.BatchNormalization()(attention_mul)
-    attention_mul = layers.Dropout(0.3)(attention_mul)
 
     gru_out = layers.Bidirectional(layers.GRU(64, activation='tanh', recurrent_activation='sigmoid', use_bias=True, return_sequences=True))(input_between)
     gru_out = layers.Bidirectional(layers.GRU(64, activation='tanh', recurrent_activation='sigmoid', use_bias=True, return_sequences=True))(gru_out)
@@ -70,11 +57,6 @@ def build_methven_large():
     new_input3 = layers.Reshape((maxlen,1))(input3)
     input_between = layers.concatenate([input1, input2, new_input3], axis=-1)
     print('input_between.get_shape()', input_between.get_shape()) # (None, 5, 1537)
-    
-    ####### between-branch
-    attention_mul = attention_3d_block(input_between,maxlen)
-    attention_mul = layers.BatchNormalization()(attention_mul)
-    attention_mul = layers.Dropout(0.3)(attention_mul)
 
     gru_out = layers.Bidirectional(layers.GRU(64, activation='tanh', recurrent_activation='sigmoid', use_bias=True, return_sequences=True))(input_between)
     gru_out = layers.Bidirectional(layers.GRU(64, activation='tanh', recurrent_activation='sigmoid', use_bias=True, return_sequences=True))(gru_out)

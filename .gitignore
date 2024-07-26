@@ -32,6 +32,7 @@ evaluation_slope.py
 large_ten_fold.py
 finetune_mono.py
 middleOutput_.py
+middleOutput_biGRU.py
 middleOutput_tenfold.py
 middleOutput_tenfold_cpgenie.py
 middleOutput_slope.py

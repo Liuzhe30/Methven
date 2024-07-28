@@ -18,6 +18,7 @@ experiment/other-tissue-meqtl/
 experiment/07-hidden-state-analysis/test.py
 experiment/07-hidden-state-analysis/genome_field/
 experiment/07-hidden-state-analysis/hidden_state/
+experiment/07-hidden-state-analysis/images/
 
 # middle scripts
 training_onehot.py
@@ -38,9 +39,6 @@ middleOutput_biGRU.py
 middleOutput_tenfold.py
 middleOutput_tenfold_cpgenie.py
 middleOutput_slope.py
-model/cpgenie.py
-src/dataGenerator_onehot.py
-src/dataGenerator_cpgenie.py
 
 # middle file
 *.pyc

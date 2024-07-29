@@ -3,16 +3,6 @@ datasets/
 data/chr_final_count/
 preprocess/scripts/test.py
 preprocess/images/
-model/weights/
-model/weights_onehot/
-model/weights_slope/
-model/weights_cpgenie_tenfold/
-model/weights_tenfold/
-model/weights_mono/
-model/weights_mono_finetune/
-model/weights_slope_ablation_noattention/
-model/weights_tenfold_ablation_noattention/
-model/weights_ablation_noattention/
 experiment/images/
 experiment/other-tissue-meqtl/
 experiment/07-hidden-state-analysis/test.py
@@ -26,12 +16,14 @@ training_tenfold.py
 training_tenfold_cpgenie.py
 training_slope.py
 training_mono.py
+training_ablation.py
 evaluation_onehot.py
 evaluation_tenfold.py
 evaluation_mono.py
 evaluation_mono_e2e.py
 evaluation_cpgenie_tenfold.py
 evaluation_slope.py
+evaluation_ablation.py
 large_ten_fold.py
 finetune_mono.py
 middleOutput_.py
@@ -39,8 +31,16 @@ middleOutput_biGRU.py
 middleOutput_tenfold.py
 middleOutput_tenfold_cpgenie.py
 middleOutput_slope.py
+05-ablation-evaluation.ipynb
+model/methven_noATAC.py
+model/methven_noBiGRU.py
+model/methven_noDNABERT.py
 
 # middle file
 *.pyc
 *.npy
 *.slurm
+*.tf.index
+*.tf.data-00000-of-00001
+checkpoint
+*_log.csv

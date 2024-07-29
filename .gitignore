@@ -9,6 +9,7 @@ experiment/07-hidden-state-analysis/test.py
 experiment/07-hidden-state-analysis/genome_field/
 experiment/07-hidden-state-analysis/hidden_state/
 experiment/07-hidden-state-analysis/images/
+experiment/06-existing-methods-comparison/images/
 
 # middle scripts
 training_onehot.py
@@ -43,4 +44,4 @@ model/methven_noDNABERT.py
 *.tf.index
 *.tf.data-00000-of-00001
 checkpoint
-*_log.csv
+*.csv

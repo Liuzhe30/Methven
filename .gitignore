@@ -45,3 +45,9 @@ model/methven_noDNABERT.py
 *.tf.data-00000-of-00001
 checkpoint
 *.csv
+*.xlsx
+*.sizes
+*.bigWig
+*.bedGraph
+*.narrowPeak
+*.bw

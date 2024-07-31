@@ -10,6 +10,9 @@ experiment/07-hidden-state-analysis/genome_field/
 experiment/07-hidden-state-analysis/hidden_state/
 experiment/07-hidden-state-analysis/images/
 experiment/06-existing-methods-comparison/images/
+experiment/08-disease-SNP/data/final_t0/
+experiment/08-disease-SNP/data/final_t24/
+
 
 # middle scripts
 training_onehot.py
@@ -36,6 +39,7 @@ middleOutput_slope.py
 model/methven_noATAC.py
 model/methven_noBiGRU.py
 model/methven_noDNABERT.py
+pred_disease_SNP.py
 
 # middle file
 *.pyc
@@ -51,3 +55,5 @@ checkpoint
 *.bedGraph
 *.narrowPeak
 *.bw
+*.json
+*.pkl

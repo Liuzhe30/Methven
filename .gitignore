@@ -12,6 +12,7 @@ experiment/07-hidden-state-analysis/images/
 experiment/06-existing-methods-comparison/images/
 experiment/08-disease-SNP/data/final_t0/
 experiment/08-disease-SNP/data/final_t24/
+experiment/08-disease-SNP/images/
 
 
 # middle scripts
@@ -40,6 +41,7 @@ model/methven_noATAC.py
 model/methven_noBiGRU.py
 model/methven_noDNABERT.py
 pred_disease_SNP.py
+experiment/08-disease-SNP/test.ipynb
 
 # middle file
 *.pyc

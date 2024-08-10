@@ -42,6 +42,7 @@ model/methven_noBiGRU.py
 model/methven_noDNABERT.py
 pred_disease_SNP.py
 experiment/08-disease-SNP/test.ipynb
+test_interface.py
 
 # middle file
 *.pyc

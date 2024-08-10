@@ -14,7 +14,8 @@ Please download the reference genome and the pretrained model weights from the [
 
 ```python
 import numpy as np
-from src.utils import *
+from src.utils_sign_prediction import *
+from src.utils_slope_prediction import *
 
 
 ```

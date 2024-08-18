@@ -55,7 +55,8 @@ class dataGenerator():
 
                 input_before = np.array(before_seq)
                 input_after = np.array(after_seq)
-                input_atac_bet = np.array(atac_bet)
+                input_atac_bet = np.array(atac_bet).transpose(0,2,1)
+                input_atac_bet = input_atac_bet.reshape((input_atac_bet.shape[0],input_atac_bet.shape[1]))
                 y = np.array(dataY_batch)
 
                 i += self.batch_size
@@ -93,7 +94,8 @@ class dataGenerator():
 
         input_before = np.array(before_seq)
         input_after = np.array(after_seq)
-        input_atac_bet = np.array(atac_bet)
+        input_atac_bet = np.array(atac_bet).transpose(0,2,1)
+        input_atac_bet = input_atac_bet.reshape((input_atac_bet.shape[0],input_atac_bet.shape[1]))
         y = np.array(dataY_batch)
 
         return ([input_before, input_after, input_atac_bet], y)

@@ -40,6 +40,7 @@ middleOutput_slope.py
 model/methven_noATAC.py
 model/methven_noBiGRU.py
 model/methven_noDNABERT.py
+model/methven_onehot.py
 pred_disease_SNP.py
 experiment/08-disease-SNP/test.ipynb
 test_interface.py

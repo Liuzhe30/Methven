@@ -30,10 +30,10 @@ Note:
 - When using the preprocessing scripts and the parameters of Methven to process and predict on your own dataset, place all **Reference Allele** to the "before mutation" input branch for hg19 sequence alignment.
 
 ## Processed training dataset and model weights
-|model|trained weights|parameter|processed training data|test data|
+|model|trained weights|slope trained weights|parameter|processed training data|test data|
 |:---:|:---:|:---:|:---:|:---:|
-|Small|[Download](https://www.psymukb.net:83/EMO_Download/trained_weights/small/)|722,786|[Download](https://www.psymukb.net:83/EMO_Download/training_test_set/small/train_small_post.pkl)|[Download](https://www.psymukb.net:83/EMO_Download/training_test_set/small/test_small_post.pkl)|
-|Large|[Download](https://www.psymukb.net:83/EMO_Download/trained_weights/large/)|814,946|[Download](https://www.psymukb.net:83/EMO_Download/training_test_set/large/train_large_post.pkl)|[Download](https://www.psymukb.net:83/EMO_Download/training_test_set/large/test_large_post.pkl)|
+|Small|[Download](https://www.psymukb.net:83/Methven_Download/small/weight/)|722,786|[Download](https://www.psymukb.net:83/Methven_Download/small/weight_slope/)|[Download](https://www.psymukb.net:83/Methven_Download/small/data/small_train.dataset)|[Download](https://www.psymukb.net:83/Methven_Download/small/data/small_test.dataset)|
+|Large|[Download](https://www.psymukb.net:83/Methven_Download/large/weight/)|814,946|[Download](https://www.psymukb.net:83/Methven_Download/large/weight_slope/)|[Download](https://www.psymukb.net:83/Methven_Download/large/data/large_train.dataset)|[Download](https://www.psymukb.net:83/Methven_Download/large/data/large.dataset)|
 
 ## Raw data
 |Data|resource|

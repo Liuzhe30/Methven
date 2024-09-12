@@ -9,17 +9,6 @@ Predicting the effect of non-coding mutations on single-cell DNA methylation usi
 - Protobuf == 3.20
 - Scikit-learn == 1.1
 
-## Running interface
-Please download the reference genome and the pretrained model weights from the [Cloud Storage](https://www.psymukb.net:83/EMO_Download/trained_weights/) (download all weights and save to one folder). Please keep the same file name as when you downloaded it, and the program will automatically identify which model to use. 
-
-```python
-import numpy as np
-from src.utils_sign_prediction import *
-from src.utils_slope_prediction import *
-
-
-```
-
 ## Training
 You can specify the model size and other hyper-parameters through the command:
 ```shell

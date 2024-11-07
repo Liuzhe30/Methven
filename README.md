@@ -9,6 +9,33 @@ Predicting the effect of non-coding mutations on single-cell DNA methylation usi
 - Protobuf == 3.20
 - Scikit-learn == 1.1
 
+## Running interface
+Please download the reference genome and the pretrained model weights from the [Cloud Storage](https://www.psymukb.net:83/Methven_Download/). 
+Please keep the same file relative path as when you downloaded it, and the program will automatically identify which model to use. 
+Please prepare the running environment of [DNABert2](https://github.com/MAGICS-LAB/DNABERT_2).
+```python
+import numpy as np
+from src.utils_sign_prediction import *
+from src.utils_slope_prediction import *
+
+# Input examples, please replace the numpy arrays by real ATAC-seq arrays
+input_variant = 'chr1_85591599_G_A' # hg19, only single-point mutation accepted
+cpg_position = 85600447
+atac_seq = np.random.rand(20_001) # centered on CpG site, 20,001bp for 'Methven-small' model and 200,001bp for 'Methven-large' model
+
+# Define path of downloaded data and the genome path
+genome_path = '/reference_genome_hg19/' # In this case, '/reference_genome_hg19/chr1.fasta' will be used.
+download_path = '/Methven_Download/' # In this case, the weights from '/Methven_Download/weights/' will be used.
+
+# Get sign prediction output, this case takes about 10 seconds
+sign_prediction_output = get_sign_prediction_result(input_variant, cpg_position, atac_seq, genome_path, download_path) 
+sign_prediction_output # 'Up-regulation' or 'Down-regulation'
+
+# Get slope prediction output, this case takes about 10 seconds
+slope_prediction_output = get_slope_prediction_result(input_variant, cpg_position, atac_seq, genome_path, download_path) 
+slope_prediction_output # Absolute value of slope, consider labeling mutations as 'no effect' when the value is small
+```
+
 ## Training
 You can specify the model size and other hyper-parameters through the command:
 ```shell
@@ -17,6 +44,13 @@ python training.py -m small --epoch 100 --lr 0.005 --save_dir model/weights/
 ```
 Note: 
 - When using the preprocessing scripts and the parameters of Methven to process and predict on your own dataset, place all **Reference Allele** to the "before mutation" input branch for hg19 sequence alignment.
+
+## Evaluating and predicting
+Please prepare your datasets when predicting the results, and choose the model size in the script.
+```shell
+cd [work_path]
+python evaluation.py
+```
 
 ## Processed training dataset and model weights
 |model|trained weights|parameter|slope trained weights|processed training data|test data|

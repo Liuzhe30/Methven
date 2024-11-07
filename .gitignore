@@ -46,7 +46,6 @@ model/methven_noDNABERT.py
 model/methven_onehot.py
 pred_disease_SNP.py
 experiment/08-disease-SNP/test.ipynb
-test_interface.py
 bedGraphToBigWig
 
 # middle file

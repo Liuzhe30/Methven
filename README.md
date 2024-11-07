@@ -27,11 +27,11 @@ atac_seq = np.random.rand(20_001) # centered on CpG site, 20,001bp for 'Methven-
 genome_path = '/reference_genome_hg19/' # In this case, '/reference_genome_hg19/chr1.fasta' will be used.
 download_path = '/Methven_Download/' # In this case, the weights from '/Methven_Download/weights/' will be used.
 
-# Get sign prediction output, this case takes about 10 seconds
+# Get sign prediction output
 sign_prediction_output = get_sign_prediction_result(input_variant, cpg_position, atac_seq, genome_path, download_path) 
 sign_prediction_output # 'Up-regulation' or 'Down-regulation'
 
-# Get slope prediction output, this case takes about 10 seconds
+# Get slope prediction output
 slope_prediction_output = get_slope_prediction_result(input_variant, cpg_position, atac_seq, genome_path, download_path) 
 slope_prediction_output # Absolute value of slope, consider labeling mutations as 'no effect' when the value is small
 ```

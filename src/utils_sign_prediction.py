@@ -11,10 +11,10 @@ from tensorflow.keras.layers import Input
 from model.methven import *
 from src.dataGenerator import dataGenerator
 
-def get_sign_prediction_result(download_path):
+def get_sign_prediction_result(download_path, embedding_file):
     
     # 1 fetch dataset
-    test_data = pd.read_pickle('temp.dataset')
+    test_data = pd.read_pickle(embedding_file)
     input_variant = test_data['input_variant'][0]
     cpg_position = test_data['cpg_position'][0]
     

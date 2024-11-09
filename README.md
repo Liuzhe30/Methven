@@ -25,10 +25,11 @@ from src.utils_prepare_embedding import *
 input_variant = 'chr1_85591599_G_A' # hg19, only single-point mutation accepted
 cpg_position = 85600447
 atac_seq = np.random.rand(20_001) # centered on CpG site, 20,001bp for 'Methven-small' model and 200,001bp for 'Methven-large' model
+save_file = '/save_path/temp.dataset' # save the embedding file
 
 # Define the genome path
 genome_path = '/reference_genome_hg19/' # In this case, '/reference_genome_hg19/chr1.fasta' will be used.
-embedding = get_embedding(input_variant, cpg_position, atac_seq, genome_path)
+embedding = get_embedding(input_variant, cpg_position, atac_seq, genome_path, save_file)
 ```
 > Step 2: run Methven
 Please create the running environment of Methven or use [methven.yaml](https://github.com/Liuzhe30/Methven/tree/main/enrironment/methven.yaml).
@@ -41,13 +42,14 @@ from src.utils_slope_prediction import *
 
 # Define path of downloaded data
 download_path = '/Methven_Download/' # In this case, the weights from '/Methven_Download/small/weights/' will be used.
+embedding_file = '/save_path/temp.dataset' # lode the embedding file
 
-# Get sign prediction output
-sign_prediction_output = get_sign_prediction_result(download_path) 
+# Get sign prediction output, this case takes about 5 seconds
+sign_prediction_output = get_sign_prediction_result(download_path, embedding_file) 
 print(sign_prediction_output) # 'Up-regulation' or 'Down-regulation'
 
-# Get slope prediction output
-slope_prediction_output = get_slope_prediction_result(download_path) 
+# Get slope prediction output, this case takes about 5 seconds
+slope_prediction_output = get_slope_prediction_result(download_path, embedding_file) 
 print(slope_prediction_output) # Absolute value of slope, consider labeling mutations as 'no effect' when the value is small
 ```
 

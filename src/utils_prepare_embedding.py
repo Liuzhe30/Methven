@@ -10,7 +10,7 @@ warnings.filterwarnings('ignore')
 tokenizer = AutoTokenizer.from_pretrained("zhihan1996/DNABERT-2-117M", trust_remote_code=True)
 model_dnabert = AutoModel.from_pretrained("zhihan1996/DNABERT-2-117M", trust_remote_code=True)
 
-def get_embedding(input_variant, cpg_position, atac_seq, genome_path):
+def get_embedding(input_variant, cpg_position, atac_seq, genome_path, save_file):
 
     # 1 prepare dataset
     chr_str = input_variant.split('_')[0]
@@ -34,11 +34,14 @@ def get_embedding(input_variant, cpg_position, atac_seq, genome_path):
     sequence2_list = split_seq(seq_after, model_size)
     dnabert2 = dnabert_embedding(sequence2_list) # (x,768)
 
-    test_data = pd.DataFrame(columns=['input_variant', 'cpg_position', 'dnabert_before', 'dnabert_after', 'atac_between', 'label'])
-    test_data = test_data._append([{'input_variant':input_variant, 'cpg_position':cpg_position, 'dnabert_before':dnabert1, 'dnabert_after':dnabert2, 
-                                    'atac_between':atac_seq, 'label':0}], ignore_index=True)
+    # average pooling for atac-seq
+    atac_pooling = atac_average_pooling(model_size, atac_seq)
+
+    test_data = pd.DataFrame(columns=['input_variant', 'cpg_position', 'dnabert_before', 'dnabert_after', 'atac_between', 'label', 'Beta'])
+    test_data = test_data._append([{'input_variant':input_variant, 'cpg_position':cpg_position, 'dnabert_before':np.expand_dims(dnabert1,axis=0), 'dnabert_after':np.expand_dims(dnabert2,axis=0), 
+                                    'atac_between':atac_pooling , 'label':0, 'Beta':0}], ignore_index=True)
     
-    test_data.to_pickle('temp.dataset')
+    test_data.to_pickle(save_file)
 
 def get_model_size(distance):
     tss_distance = np.abs(distance)
@@ -68,6 +71,24 @@ def split_seq(sequence,model):
     seq_list.append(sequence[250+500*n+501+500*n:250+500*n+501+500*n+250])
     
     return seq_list
+
+def atac_average_pooling(model_size, atac):
+    model_cutting = {'small':19,'large':199}
+    new_atac_list = []
+    n = model_cutting[model_size]
+    # first 250bp
+    new_atac_list.append(np.mean(atac[0:250]))
+    # first n*500bp
+    for i in range(n):
+        new_atac_list.append(np.mean(atac[250+i*500:250+(i+1)*500]))
+    # mutation part
+    new_atac_list.append(np.mean(atac[250+500*n:250+500*n+501]))
+    # second n*500bp
+    for i in range(n):
+        new_atac_list.append(np.mean(atac[250+500*n+501+i*500:250+500*n+501+(i+1)*500]))
+    # second 250bp
+    new_atac_list.append(np.mean(atac[250+500*n+501+500*n:250+500*n+501+500*n+250]))
+    return new_atac_list
 
 def dnabert_embedding(seq_list):
     embedding_list = []

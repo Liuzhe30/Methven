@@ -24,7 +24,7 @@ def build_methven_small():
     ####### merge inputs of the same scale
     new_input3 = layers.Reshape((maxlen,1))(input3)
     input_between = layers.concatenate([input1, input2, new_input3], axis=-1)
-    print('input_between.get_shape()', input_between.get_shape()) # (None, 5, 1537)
+    #print('input_between.get_shape()', input_between.get_shape()) # (None, 5, 1537)
 
     gru_out = layers.Bidirectional(layers.GRU(64, activation='tanh', recurrent_activation='sigmoid', use_bias=True, return_sequences=True))(input_between)
     gru_out = layers.Bidirectional(layers.GRU(64, activation='tanh', recurrent_activation='sigmoid', use_bias=True, return_sequences=True))(gru_out)

@@ -13,7 +13,7 @@ Predicting the effect of non-coding mutations on single-cell DNA methylation usi
 Please download the reference genome and the pretrained model weights from the [Cloud Storage](https://www.psymukb.net:83/Methven_Download/). 
 Please keep the same file relative path as when you downloaded it, and the program will automatically identify which model to use.   
 
-> Step 1: prepare input embedding
+> Step 1: prepare input embedding  
 Please prepare the running environment of [DNABert2](https://github.com/MAGICS-LAB/DNABERT_2) or use [dnabert2.yaml](https://github.com/Liuzhe30/Methven/tree/main/enrironment/dnabert2.yaml).
 ```shell
 source activate dnabert2
@@ -31,7 +31,7 @@ save_file = '/save_path/temp.dataset' # save the embedding file
 genome_path = '/reference_genome_hg19/' # In this case, '/reference_genome_hg19/chr1.fasta' will be used.
 embedding = get_embedding(input_variant, cpg_position, atac_seq, genome_path, save_file)
 ```
-> Step 2: run Methven
+> Step 2: run Methven  
 Please create the running environment of Methven or use [methven.yaml](https://github.com/Liuzhe30/Methven/tree/main/enrironment/methven.yaml).
 ```shell
 source activate methven

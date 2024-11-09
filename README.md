@@ -14,13 +14,14 @@ Please download the reference genome and the pretrained model weights from the [
 Please keep the same file relative path as when you downloaded it, and the program will automatically identify which model to use.   
 
 > Step 1: prepare input embedding  
-Please prepare the running environment of [DNABert2](https://github.com/MAGICS-LAB/DNABERT_2) or use [dnabert2.yaml](https://github.com/Liuzhe30/Methven/tree/main/enrironment/dnabert2.yaml).
+Please prepare the running environment of [DNABert2](https://github.com/MAGICS-LAB/DNABERT_2) or use [dnabert2.yaml](https://github.com/Liuzhe30/Methven/tree/main/environment/dnabert2.yaml).
 ```shell
 source activate dnabert2
 ```
 ```python
 import numpy as np
 from src.utils_prepare_embedding import *
+
 # input examples
 input_variant = 'chr1_85591599_G_A' # hg19, only single-point mutation accepted
 cpg_position = 85600447
@@ -32,7 +33,7 @@ genome_path = '/reference_genome_hg19/' # In this case, '/reference_genome_hg19/
 embedding = get_embedding(input_variant, cpg_position, atac_seq, genome_path, save_file)
 ```
 > Step 2: run Methven  
-Please create the running environment of Methven or use [methven.yaml](https://github.com/Liuzhe30/Methven/tree/main/enrironment/methven.yaml).
+Please create the running environment of Methven or use [methven.yaml](https://github.com/Liuzhe30/Methven/tree/main/environment/methven.yaml).
 ```shell
 source activate methven
 ```
@@ -40,7 +41,7 @@ source activate methven
 from src.utils_sign_prediction import *
 from src.utils_slope_prediction import *
 
-# Define path of downloaded data
+# Define path of downloaded weights and the embedding file
 download_path = '/Methven_Download/' # In this case, the weights from '/Methven_Download/small/weights/' will be used.
 embedding_file = '/save_path/temp.dataset' # lode the embedding file
 

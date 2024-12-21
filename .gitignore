@@ -17,6 +17,7 @@ experiment/08-disease-SNP-GO/
 experiment/09-SNP-different-cell/data/
 experiment/09-SNP-different-cell/images/
 experiment/10-tissue-meqtl-evaluation/images/
+experiment/11-single-cell-eqtl-evaluation/images/
 
 
 # middle scripts
@@ -53,6 +54,8 @@ test_interface_methven.py
 bedGraphToBigWig
 evaluation_skin.py
 training_skin.py
+evaluation_eqtl.py
+training_eqtl.py
 
 # middle file
 *.pyc

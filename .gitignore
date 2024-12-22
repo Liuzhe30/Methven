@@ -18,6 +18,7 @@ experiment/09-SNP-different-cell/data/
 experiment/09-SNP-different-cell/images/
 experiment/10-tissue-meqtl-evaluation/images/
 experiment/11-single-cell-eqtl-evaluation/images/
+experiment/12-language-model-evaluation/images/
 
 
 # middle scripts
@@ -47,6 +48,8 @@ model/methven_noATAC.py
 model/methven_noBiGRU.py
 model/methven_noDNABERT.py
 model/methven_onehot.py
+model/methven_slope_DLM.py
+src/dataGenerator_slope_DLM.py
 pred_disease_SNP.py
 experiment/08-disease-SNP/test.ipynb
 test_interface_dnabert2.py
@@ -56,6 +59,8 @@ evaluation_skin.py
 training_skin.py
 evaluation_eqtl.py
 training_eqtl.py
+evaluation_DLM.py
+training_DLM.py
 
 # middle file
 *.pyc

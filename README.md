@@ -53,6 +53,9 @@ print(sign_prediction_output) # 'Up-regulation' or 'Down-regulation'
 slope_prediction_output = get_slope_prediction_result(download_path, embedding_file) 
 print(slope_prediction_output) # Absolute value of slope, consider labeling mutations as 'no effect' when the value is small
 ```
+Note:
+- We recommend first using the classification model for a broad and coarse-grained assessment, followed by the regression model for detailed predictions.
+- When the Beta value predicted by the regression model has a small absolute value, consider labeling mutations as 'no effect'.
 
 ## Training
 You can specify the model size and other hyper-parameters through the command:

@@ -5,7 +5,7 @@ import numpy as np
 import math
 pd.set_option('display.max_columns', None)
 
-atac_path = '../../datasets/raw/impute_BSS01587_ATAC-seq.bigWig'
+atac_path = '../../datasets/raw/impute_BSS01502_ATAC-seq.bigWig'
 output_path = '../../datasets/atac_mapping_retina/'
 file_path = '../../datasets/seq_mapping_post_retina/'
 

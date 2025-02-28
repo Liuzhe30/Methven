@@ -86,5 +86,5 @@ python evaluation.py
 |single-cell ATAC-seq(CD4+ T cell, Monocyte)|[EpiMap](https://personal.broadinstitute.org/cboix/epimap/metadata/Short_Metadata.html)|
 |GRCh37/hg19 genome|[UCSC Genome Browser](https://genome.ucsc.edu/cgi-bin/hgGateway)|
 |Regulation annotation (hg19)|[UCSC Genome Browser](https://genome.ucsc.edu/cgi-bin/hgTables?db=hg19)|
-|Unstimulated and 24hr stimulated RA ATAC-seq|[GWAS summary statistics](http://plaza.umin.ac.jp/~yokada/datasource/software.htm)|
-|RA-associated SNPs|[GEO Series accession](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE138767)|
+|Unstimulated and 24hr stimulated RA ATAC-seq|[GEO Series accession](http://plaza.umin.ac.jp/~yokada/datasource/software.htm)|
+|RA-associated SNPs|[GWAS summary statistics](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE138767)|

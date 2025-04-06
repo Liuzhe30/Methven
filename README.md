@@ -82,8 +82,8 @@ python evaluation.py
 ## Raw data
 |Data|resource|
 |:---:|:---:|
-|single-cell meQTL(CD4+ T cell, Monocyte)|[EPIGEN MeQTL Database](https://epicmeqtl.kcl.ac.uk/ )|
-|single-cell ATAC-seq(CD4+ T cell, Monocyte)|[EpiMap](https://personal.broadinstitute.org/cboix/epimap/metadata/Short_Metadata.html)|
+|meQTL(CD4+ T cell, Monocyte)|[EPIGEN MeQTL Database](https://epicmeqtl.kcl.ac.uk/ )|
+|ATAC-seq(CD4+ T cell, Monocyte)|[EpiMap](https://personal.broadinstitute.org/cboix/epimap/metadata/Short_Metadata.html)|
 |GRCh37/hg19 genome|[UCSC Genome Browser](https://genome.ucsc.edu/cgi-bin/hgGateway)|
 |Regulation annotation (hg19)|[UCSC Genome Browser](https://genome.ucsc.edu/cgi-bin/hgTables?db=hg19)|
 |Unstimulated and 24hr stimulated RA ATAC-seq|[GEO Series accession](http://plaza.umin.ac.jp/~yokada/datasource/software.htm)|
